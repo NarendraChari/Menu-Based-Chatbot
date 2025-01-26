@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Chatbot</title>
+
+    <style>
+        html, body {
+    height: 100%;
+    margin: 0; /* Remove default body margin */
+    overflow: hidden; /* Prevent body overflow */
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(90deg, rgba(1, 1, 88, 0.82), rgb(1, 1, 29));
+    transition: 1s all ease-in-out;
+    margin: 0; /* Remove default body margin */
+}
+#init{
+    margin-top: 2rem;
+    background: indianred;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    color: aliceblue;
+    cursor: pointer;
+}
+.desc p{
+    color: rgb(133,153,168);
+    margin: 0;
+    font-weight: 600;
+}
+.text{
+    font-size: 65px;
+    font-weight: 800;
+    color: cadetblue;
+    margin: 0;
+}
+.parent {
+    position: relative;
+    height: 100%;
+    padding: 0 7rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%; /* Use 100% width */
+}
+.bot-img{
+    width: 20rem;
+    height: 20rem;
+}
+.child {
+    box-shadow: 0 0 2px salmon;
+    border-radius: 15px;
+    height: 40rem; /* Increase the height */
+    width: 25rem; /* Increase the width */
+    margin: auto;
+    background: white;
+}
+.header img{
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin: 0 0.5rem;
+    border: 1px solid rgb(231,231,231);
+    padding: 5px;
+}
+.header {
+    position: absolute;
+    top: 0;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid whitesmoke;
+    background: white;
+    padding: 5px 0;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    z-index: 1;
+    box-shadow: 0 0 2px rgb(175, 175, 175);
+    width: 25rem;
+}
+.h-child{
+    display: flex;
+    align-items: center;
+}
+.header span{
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+}
+.refBtn{
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    border-radius: 50%;
+    color: indianred;
+    font-size: 18px;
+    cursor: pointer;
+}
+.name{
+    font-weight: 600;
+}
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 20rem; /* Match the width of the child container */
+    background: white;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    color: indianred;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 14px;
+    box-shadow: 0 0 3px rgb(153, 153, 153);
+    width: 25rem;
+}
+#chat-box {
+    position: relative;
+    top: 40px;
+    padding: 8px 10px;
+    font-size: 12px;
+    height: 32.4rem;
+    width: 23.56rem;
+    overflow: auto;
+    background: rgb(224, 241, 253);
+    text-align: center;
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(90deg, rgba(1, 1, 88, 0.82), rgb(1, 1, 29));
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* these classes will be used in javascript file */
+.msg{
+    background: white;
+    padding: 5px 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    width: max-content;
+    font-size: 14px;
+    color: lightslategrey;
+    box-shadow: 0 0 5px rgb(226,226,226);
+    max-width: 65%;
+    text-align: left;
+}
+.test{
+    text-align: right;
+    margin: 20px 0;
+}
+.rep{
+    background: rgb(253,243,224);
+    color: lightslategray;
+    padding: 5px 15px;
+    border-top-right-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+    font-size: 14px;
+    box-shadow: 0 0 5px rgb(211,211,211);
+    width: 25rem;
+}
+.back-btn {
+        float: right; /* Align the Back button to the right */
+        background-color: #6c757d;
+    }
+
+    .back-btn:hover {
+        background-color: #265d87;
+    }
+.opt{
+    padding: 5px 20px;
+    columns: lightsalmon;
+    border: 1px solid rgb(199, 12, 81);
+    border-radius: 1rem;
+    margin: 0.3rem 0.5rem;
+    display: inline-block;
+    cursor: pointer;
+    font-weight: 500;
+    background: white;
+    text-align: center;
+    font-size: 14px;
+    color: rgb(199, 12, 81);
+}
+.link{
+    text-decoration: none;
+    display: block;
+    text-align: center;
+    color: aliceblue !important;
+    background: rgb(43, 83, 226);
+}
+.m-link{
+    text-decoration: none;
+}
+.link:active{
+    background: white;
+    border: 1px solid rgb(18, 252, 49);
+    color: rgb(83, 43, 226);
+}
+.back-btn{
+    align-items: end;
+}
+    </style>
+
+    <!-- font awesome icon cdn-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="parent">
+        <nav>
+            <div class="desc">
+                <h1 class="text"></h1>
+            </div>
+            <button id="init" class="nav-btn">START CHAT</button>
+        </nav>
+
+        <div>
+            <img src="chatbot.png" alt="" class="bot-img">
+        </div>
+    </div>
+    <div id="test" style="position: fixed;top: 4rem;right: 8rem;display: none;">
+        <div class="child" id="chatbot">
+            <div class="header">
+                <div class="h-child">
+                    <img src="chatbot (1).png" alt="avatar" id="avatar">
+                    <div>
+                        <span class="name">Chatbot</span>
+                        <br>
+                        <span style="color:lawngreen">online</span>
+                    </div>
+                </div>
+                <div>
+                    <button id="back-btn" onclick="handleBack()">Back</button>
+                </div>
+                <div>
+                    <button class="refBtn"><i class="fa fa-refresh" onclick="initChat()"></i></button>
+                </div>
+            </div>
+
+            <div id="chat-box">
+
+            </div>
+            <div class="footer">
+                <span>Dept of AIML</span>
+            </div>  
+            </div>
+        </div>
+    </div>
+
+    <!-- js file  -->
+    <script>
+        var data= {
+    optionsStack: [],
+    chatinit:{
+        title: ["Hello <span class='emoji'> &#128075 I am Mr. Chatbot","Please select Category"],
+        options: ["Academic ","NonAcademic"]
+    },
+    academic: {
+        title:["Academic"],
+        options:['facultydetails','Results','Seminars','GuestLectures','PeertoPeerlearning','About','ScopeofAIML'],
+        url : {
+
+        }
+    },
+    
+    nonacademic: {
+        title:["Non Academic"],
+        options:['Acheivements','Activities'],
+        url : {
+            
+        }
+    },
+    acheivements: {
+        title:["Acheivements"],
+        options:['Sports','Talkshow'],
+        url : {
+            
+        }
+    },
+    sports:{
+        title:["Our acheivements in Sports"],
+        title:["Winners in Men's doubles badminton","Winners in Women's doubles badminton","Winners in Men's Running", "Runners in Kabaddi", "Runners in Kho-Kho" ],
+        url : {
+            
+        }
+    },
+    talkshow: {
+        title:["An Inter departmental Oral Competition in which Mr.Jamanth, Ms.Pravallika from 3rd year and Mr.Pavan, Mr. Veer Reddy from 2nd year have been the standout performers and won the Competition."],
+
+    },
+    anveshana: {
+        title:["Our presentations are:", "Automatic Fish Feeding System By V.Priyanka, K. Varshini and T.Annapurna","Sleep detecting System By K.Haritha, K.Gayatri and T.Yamini, they've also won the 2nd prize in it.","Automatic Car Parking System by M.Phani Kumar","Arduino Grass cutter by K.Pravallika, J.Roopa Devi, M.Nirupama"],
+    },
+    activities: {
+        title:["Activities"],
+        options:['Celebrations','Anveshana'],
+        url : {
+            
+        }
+    },
+    facultydetails: {
+        title:['Dr. Mohammed Rafee','Mr. M. Gopinath','Mrs. A. Nilavu Niza','Mrs. K. Harshini'],
+        url : {
+            
+        }
+    },
+    about: {
+        title: ["Artificial intelligence is an innovation that permits a system to mimic human behaviour which is concerned with creating intelligent machines. Machine learning (ML) is an application of AI that tries to build self-learning ability into the machines","The department of Artificial Intelligence & Machine Learning (AI&ML) was established in the year of 2021with an intake of 60 students. The department has outstanding laboratories and qualified faculty. The department conducts programs like guest lectures, seminars, workshops, project expos, and many more technical events to nurture students in the domain of AI and excel their careers. The department also conducts skill improvement programs for upskilling the students to get ready for the needs of industry along with the academics.","Artificial Intelligence & Machine Learning (AI&ML) is an emerging program that is quickly extending its limits to variety of fields like medical services, security, entertainment, education, autonomous transportation, intelligent robots, space exploration, image processing, stock exchange, prediction problems and many more."],
+    },
+    scopeofaiml: {
+        title: ["Artificial Intelligence and Machine Learning (AI&ML) offer several roles like Data Engineer, Automation and Optimization Engineer, Natural Language Processing Scientist, Game Developer, Robotics Professional, Research Scientist, Machine Learning Developer, AI Consultant, Machine Learning Architect, etc., and these roles are in demand in various industries such as technology, healthcare, finance, e-commerce, and more. As the field continues to advance, new and specialised roles are likely to emerge, creating even more opportunities in the AIML department. Continuous learning and staying updated with the latest developments in AI and ML are crucial for a successful career in this dynamic field."],
+    },
+    results: {
+        title: ["Thanks for your response"],
+        options: ["Sem3","Sem5"],
+        url : {
+            
+        }
+    },
+    sem3: {
+        title: ["pass percentage - 86.96"],
+        url: {
+            
+        }
+    },
+    sem5: {
+        title: ["pass percentage - 80.88"],
+        url: {
+        }
+    },
+    seminars: {
+        title: ["Students delivering seminars in class showcase communication skills, subject expertise, and confidence. It fosters a collaborative learning environment, encouraging knowledge sharing and enhancing overall academic engagement."],
+    },
+    guestlectures: {
+        title: [" A guest lecture by a data scientist enriches students' understanding, providing real-world insights into data analytics, trends, and applications. It inspires and enhances data-driven learning experiences."],
+    },
+    peertopeerlearning:{
+        title:["Peer-to-peer learning fosters collaboration, encouraging students to share knowledge, insights, and skills. It cultivates a dynamic, interactive environment, promoting mutual growth and understanding among peers."],
+    },
+    celebrations: {
+        title: ["Students joyously organized vibrant Sankranti celebrations, featuring traditional handcrafts, intricate rangoli designs, and a delightful spread of food, beverages, and sweets. The event showcased cultural richness, fostering a sense of unity and festivity among students, creating lasting memories of the festive season."],
+    }
+
+}
+document.getElementById("init").addEventListener("click",showChatBot);
+var cbot= document.getElementById("chat-box");
+
+var len1= data.chatinit.title.length;
+
+function showChatBot(){
+    console.log(this.innerText);
+    if(this.innerText=='START CHAT'){
+        document.getElementById('test').style.display='block';
+        document.getElementById('init').innerText='CLOSE CHAT';
+        initChat();
+    }
+    else{
+        location.reload();
+    }
+}
+
+
+// Add a stack to keep track of previous options
+var optionsStack = [];
+function showOptions(options) {
+    for (var i = 0; i < options.length; i++) {
+        var opt = document.createElement("span");
+        var inp = '<div>' + options[i] + '</div>';
+        opt.innerHTML = inp;
+        opt.setAttribute("class", "opt");
+        opt.addEventListener("click", handleOpt);
+        cbot.appendChild(opt);
+        handleScroll();
+    }
+
+    // Save the current options to the stack
+    data.optionsStack.push(options);
+}
+function handleBack() {
+    if (data.optionsStack.length > 0) { // Check if there are previous options
+        // Pop the current options from the stack
+        data.optionsStack.pop();
+        // Get the previous options from the stack
+        const previousOptions = data.optionsStack.pop();
+        showOptions(previousOptions);
+    }
+}
+
+function handleOpt() {
+    // ...
+    var str = this.innerText;
+    var textArr = str.split(" ");
+    var findText = textArr[0];
+
+    document.querySelectorAll(".opt").forEach((el) => {
+        el.remove();
+    });
+
+    var elm = document.createElement("p");
+    elm.setAttribute("class", "test");
+    var sp = '<span class="rep">' + this.innerText + '</span>';
+    elm.innerHTML = sp;
+    cbot.appendChild(elm);
+
+    var tempObj = data[findText.toLowerCase()];
+    handleResults(tempObj.title, tempObj.options, tempObj.url);
+
+    // Save the current options to the stack
+    optionsStack.push(tempObj.options);
+}
+
+
+function displayMessage(message) {
+    var elm = document.createElement("p");
+    elm.innerHTML = message;
+    elm.setAttribute("class", "msg");
+    cbot.appendChild(elm);
+    handleScroll();
+}
+function initChat(){
+    j=0;
+    cbot.innerHTML='';
+    for(var i=0;i<len1;i++){
+        setTimeout(handleChat,(i*500));
+    }
+    setTimeout(function(){
+        showOptions(data.chatinit.options)
+    },((len1+1)*500))
+}
+
+var j=0;
+function handleChat(){
+    console.log(j);
+    var elm= document.createElement("p");
+    elm.innerHTML= data.chatinit.title[j];
+    elm.setAttribute("class","msg");
+    cbot.appendChild(elm);
+    j++;
+    handleScroll();
+}
+
+function displayMessage(message) {
+    var elm = document.createElement("p");
+    elm.innerHTML = message;
+    elm.setAttribute("class", "msg");
+    cbot.appendChild(elm);
+    handleScroll();
+}
+function clearChatBox() {
+    cbot.innerHTML = "";
+}
+
+function handleScroll() {
+    cbot.scrollTop = cbot.scrollHeight;
+}
+function showOptions(options){
+    for(var i=0;i<options.length;i++){
+        var opt= document.createElement("span");
+        var inp= '<div>'+options[i]+'</div>';
+        opt.innerHTML=inp;
+        opt.setAttribute("class","opt");
+        opt.addEventListener("click", handleOpt);
+        cbot.appendChild(opt);
+        handleScroll();
+    }
+    data.optionsStack.push(options);
+}
+
+
+
+
+function handleDelay(title){
+    var elm= document.createElement("p");
+        elm.innerHTML= title;
+        elm.setAttribute("class","msg");
+        cbot.appendChild(elm);
+}
+
+
+function handleResults(title,options,url){
+    for(let i=0;i<title.length;i++){
+        setTimeout(function(){
+            handleDelay(title[i]);
+        },i*500)
+        
+    }
+
+    const isObjectEmpty= (url)=>{
+        return JSON.stringify(url)=== "{}";
+    }
+
+    if(isObjectEmpty(url)==true){
+        console.log("having more options");
+        setTimeout(function(){
+            showOptions(options);
+        },title.length*500)
+        
+    }
+    else{
+        console.log("end result");
+        setTimeout(function(){
+            handleOptions(options,url);
+        },title.length*500)
+        
+    }
+}
+
+function handleOptions(options,url){
+    
+    for(var i=0;i<options.length;i++){
+        var opt= document.createElement("span");
+        var inp= '<a class="m-link" href="'+url.link[i]+'">'+options[i]+'</a>';
+        opt.innerHTML=inp;
+        opt.setAttribute("class","opt");
+        cbot.appendChild(opt);
+    }
+    var opt= document.createElement("span");
+    var inp= '<a class="m-link" href="'+url.more+'">'+'See more</a>';
+
+    const isObjectEmpty= (url)=>{
+        return JSON.stringify(url)=== "{}";
+    }
+
+    console.log(isObjectEmpty(url));
+    console.log(url);
+    opt.innerHTML=inp;
+    opt.setAttribute("class","opt link");
+    cbot.appendChild(opt);
+    handleScroll();
+}
+
+function handleScroll(){
+    var elem= document.getElementById('chat-box');
+    elem.scrollTop= elem.scrollHeight;
+}
+    </script>
+</body>
+</html>
